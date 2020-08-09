@@ -1,0 +1,2 @@
+D:\game\MAS汉化0.10.7\guess\Debug\guess.exe
+D:\game\MAS汉化0.10.7\guess\Debug\guess.pdb

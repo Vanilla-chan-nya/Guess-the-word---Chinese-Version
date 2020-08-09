@@ -1,6 +1,7 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<algorithm>
 #include<cstdio>
+#include<string>
 #include<cstring>
 #include<cmath>
 #include<map>
@@ -15,24 +16,24 @@ using namespace std;
 
 bool in(char ch)
 {
-	if(ch<='z'&&ch>='a') return 1;
-	if(ch<='Z'&&ch>='A') return 1;
+	if (ch <= 'z' && ch >= 'a') return 1;
+	if (ch <= 'Z' && ch >= 'A') return 1;
 	return 0;
 }
 
-bool exclude(string a,string b,string c)//aÖĞÃ»ÓĞbÖĞµÄÈÎºÎ×ÖÄ¸,aÖĞÃ»ÓĞcÖĞ²»Í¬Î»ÖÃµÄÈÎºÎ×ÖÄ¸ 
+bool exclude(string a, string b, string c)//aä¸­æ²¡æœ‰bä¸­çš„ä»»ä½•å­—æ¯,aä¸­æ²¡æœ‰cä¸­ä¸åŒä½ç½®çš„ä»»ä½•å­—æ¯ 
 {
-	for(unsigned i=0;i<a.size();i++)
-	for(unsigned j=0;j<b.size();j++)
-	if(a[i]==b[j]){
-		//cout<<"µ±Ç°µ¥´ÊÎª"<<a<<"£¬ÖØ¸´×ÖÄ¸Îª"<<a[i]<<endl;
-		return 0;//²Â´íµÄ×ÖÄ¸²»¿ÉÄÜÓĞ 
-	}
-	
-	map<char,int>lib;
-	for(unsigned int i=0;i<c.size();i++) if(c[i]!='*') lib[c[i]]++;
-	for(unsigned int i=0;i<a.size();i++) if(c[i]=='*'&&lib.find(a[i])!=lib.end()) return 0;
-	
+	for (unsigned i = 0; i < a.size(); i++)
+		for (unsigned j = 0; j < b.size(); j++)
+			if (a[i] == b[j]) {
+				//cout<<"å½“å‰å•è¯ä¸º"<<a<<"ï¼Œé‡å¤å­—æ¯ä¸º"<<a[i]<<endl;
+				return 0;//çŒœé”™çš„å­—æ¯ä¸å¯èƒ½æœ‰ 
+			}
+
+	map<char, int>lib;
+	for (unsigned int i = 0; i < c.size(); i++) if (c[i] != '*') lib[c[i]]++;
+	for (unsigned int i = 0; i < a.size(); i++) if (c[i] == '*' && lib.find(a[i]) != lib.end()) return 0;
+
 	return 1;
 }
 
@@ -42,73 +43,77 @@ string t;
 int main()
 {
 	ifstream fin("word.txt");
-	ofstream fout("word.his",ios::app);
+	ofstream fout("word.his", ios::app);
 	ifstream his("word.his");
-	
-	if(his.peek()==EOF) cout<<"Ã»ÓĞ²éÑ¯ÀúÊ·\n";
-	else while(his.peek()!=EOF) his>>t,word.push_back(t);
-	
-	cout<<"¶ÁÈ¡Êı¾İ¿â...\n";
-	while(fin.peek()!=EOF){
+
+	if (his.peek() == EOF) cout << "æ²¡æœ‰æŸ¥è¯¢å†å²\n";
+	else while (his.peek() != EOF) his >> t, word.push_back(t);
+
+	cout << "è¯»å–æ•°æ®åº“...\n";
+	while (fin.peek() != EOF) {
 		string w;
-		getline(fin,t);
-		int post=0;
-		while(!in(t[post])) post++;
-		while(in(t[post])) w.push_back((t[post]>'z')?(t[post]-'z'+'a'):t[post]),post++;
-		word.push_back(w); 
+		getline(fin, t);
+		int post = 0;
+		while (!in(t[post])) post++;
+		while (in(t[post])) w.push_back((t[post] < 'a') ? (t[post] - 'A' + 'a') : t[post]), post++;
+		word.push_back(w);
 	}
-	cout<<"¶ÁÈ¡Íê±Ï£¡\n";
-	while(true){
-		string q,o;
-		cout<<"ÊäÈëÄãÏë²¹È«µÄ²ĞÈ±µÄµ¥´Ê,Î´Öª²¿·ÖÓÃ*´úÌæ¡£\n";
-		cin>>q;
-		getchar();//¶ÁÈ¡¸Õ¸ÕÊ£ÏÂµÄÒ»¸ö¿Õ¸ñ 
-		cout<<"ÊäÈëÒÑ¾­²Â´íÁËµÄ×ÖÄ¸£¬Ã»ÓĞµÄ»°Ö±½Ó°´ÏÂ»Ø³µ¼ü\n";
-		getline(cin,o);
-		bool succ=0;
-		int total=0;
-		map<string,int>lib;
+	cout << "è¯»å–å®Œæ¯•ï¼\n";
+	while (true) {
+		string q, o;
+		cout << "è¾“å…¥ä½ æƒ³è¡¥å…¨çš„æ®‹ç¼ºçš„å•è¯,æœªçŸ¥éƒ¨åˆ†ç”¨*ä»£æ›¿ã€‚\n";
+		cin >> q;
+		getchar();//è¯»å–åˆšåˆšå‰©ä¸‹çš„ä¸€ä¸ªç©ºæ ¼ 
+		cout << "è¾“å…¥å·²ç»çŒœé”™äº†çš„å­—æ¯ï¼Œæ²¡æœ‰çš„è¯ç›´æ¥æŒ‰ä¸‹å›è½¦é”®\n";
+		getline(cin, o);
+		bool succ = 0;
+		int total = 0;
+		map<string, int>lib;
 		int count[27];
-		memset(count,0,sizeof(count));
-		for(unsigned int i=0;i<word.size();i++)
+		memset(count, 0, sizeof(count));
+		for (unsigned int i = 0; i < word.size(); i++)
 		{
-			if(lib.find(word[i])==lib.end())
-			if(q.size()==word[i].size()&&exclude(word[i],o,q))
-			{
-				bool flag=1;
-				for(unsigned int j=0;j<q.size();j++)
+			if (lib.find(word[i]) == lib.end())
+				if (q.size() == word[i].size() && exclude(word[i], o, q))
 				{
-					if(q[j]!='*'&&q[j]!=word[i][j]){
-						flag=0;
-						break;
+					bool flag = 1;
+					for (unsigned int j = 0; j < q.size(); j++)
+					{
+						if (q[j] != '*' && q[j] != word[i][j]) {
+							flag = 0;
+							break;
+						}
+					}
+					if (flag) {
+						succ = 1;
+						lib[word[i]]++;
+						cout << ++total << "\t" << word[i] << endl;
+						for (unsigned int j = 0; j < word[i].size(); j++) count[((word[i][j] < 'a') ? word[i][j] - 'A' + 'a' : word[i][j]) - 'a']++;
 					}
 				}
-				if(flag){
-					succ=1;
-					lib[word[i]]++;
-					cout<<++total<<"\t"<<word[i]<<endl;
-					for(unsigned int j=0;j<word[i].size();j++) count[((word[i][j]>'z')?word[i][j]-26:word[i][j])-'a']++;
-				}
+		}
+		if (!succ) {
+			cout << "å•è¯æ²¡æœ‰æ‰¾åˆ°å•Š~ä½ çŸ¥é“ç­”æ¡ˆä¹ˆï¼Ÿï¼ˆyes/noï¼‰";
+			string know; cin >> know;
+			if (know == "y" || know == "yes") {
+				cout << "è¯·è¾“å…¥ç­”æ¡ˆï¼š";
+				string ans;
+				cin >> ans;
+				cout << "å¥½å“’ï¼Œå®ƒå·²ç»è¢«ä¿å­˜äº†\n";
+				fout << ans << endl;
 			}
 		}
-		if(!succ){
-			cout<<"µ¥´ÊÃ»ÓĞÕÒµ½°¡~ÄãÖªµÀ´ğ°¸Ã´£¿£¨yes/no£©";
-			string know;cin>>know;
-			if(know=="y"||know=="yes"){
-				cout<<"ÇëÊäÈë´ğ°¸£º"; 
-				string ans; 
-				cin>>ans;
-				cout<<"ºÃßÕ£¬ËüÒÑ¾­±»±£´æÁË\n";
-				fout<<ans<<endl; 
+		else {
+			cout << "å…±è®¡" << total << "ä¸ªç¬¦åˆæ¡ä»¶çš„å•è¯\n";
+			int max = -1;
+			for (int i = 0; i < 26; i++) {
+				cout << (char)(i + 'a') << " " << count[i] << endl;
+				if (count[max] < count[i] && q.find(i + 'a') == q.npos) max = i;
 			}
+			cout << "å»ºè®®çŒœæµ‹ " << (char)(max + 'a') << "  å‡ºç°äº† " << count[max] << "æ¬¡";
 		}
-		else{
-			cout<<"¹²¼Æ"<<total<<"¸ö·ûºÏÌõ¼şµÄµ¥´Ê\n";
-			for(int i=0;i<26;i++) cout<<(char)(i+'a')<<" "<<count[i]<<endl;
-		}
-		cout<<endl<<endl<<endl;
+		cout << endl << endl << endl;
 	}
 	return 0;
 }
-
 
