@@ -60,8 +60,9 @@ int main()
 	}
 	cout << "读取完毕！\n";
 	set<char>have,no;
-	string yes="*****";
-	unsigned int len=5;
+	unsigned int len=8;
+	string yes="";
+	for(unsigned int i=0;i<len;i++) yes.push_back('*');
 	while(true)
 	{
 		cout<<"cls|clear|add x|del x|yes 1h2e3l4l5o|save str"<<endl<<"-----------------------------------------------"<<endl;
@@ -72,7 +73,8 @@ int main()
 			system("cls");
 			have.clear();
 			no.clear();
-			yes="*****";
+			yes="";
+			for(unsigned int i=0;i<len;i++) yes.push_back('*');
 		}
 		else if(op=="add")
 		{
@@ -108,6 +110,14 @@ int main()
 			cin >> ans;
 			cout << "好哒，它已经被保存了\n";
 			fout << ans << endl;
+		}
+		else if(op=="len")
+		{
+			int x;cin>>x;
+			len=x;
+			cout<<"长度已经被修改为"<<len<<endl;
+			yes="";
+			for(unsigned int i=0;i<len;i++) yes.push_back('*');
 		}
 		vector<string>maybe;
 		for(unsigned int i=0;i<word.size();i++)
