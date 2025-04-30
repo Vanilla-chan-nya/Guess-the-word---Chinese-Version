@@ -60,7 +60,7 @@ int main()
 	}
 	cout << "读取完毕！\n";
 	set<char>have,no;
-	unsigned int len=8;
+	unsigned int len=7;
 	string yes="";
 	for(unsigned int i=0;i<len;i++) yes.push_back('*');
 	while(true)
@@ -101,7 +101,7 @@ int main()
 			for(unsigned int i=0;i<str.size();i+=2)
 			{
 				int idx=str[i]-'0';
-				if(idx<=5&&idx>=1) yes[idx-1]=str[i+1];
+				if(idx<=9&&idx>=1) yes[idx-1]=str[i+1];
 			}
 		}
 		else if(op=="save")
